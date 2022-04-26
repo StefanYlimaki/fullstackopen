@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useState} from 'react'
 
 const App = () => {
   const anecdotes = [
@@ -14,7 +14,6 @@ const App = () => {
   const [points, setPoints] = useState(Array(anecdotes.length).fill(0)) // Luodaan nollilla täytetty useState-taulukko, jonka pituus on sama kuin anecdotes
   const [selected, setSelected] = useState(0)
   const [mostPopularAnecdote, setMostPopularAnecdote] = useState(0)
-
 
   // funktio vote napin painallukseen
   const handleVoteClick = () => {
@@ -37,12 +36,12 @@ const App = () => {
     <div>
       <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
-      <p> has {points[selected]} votes</p>
-      <button onClick={handleVoteClick}>vote </button>
-      <button onClick={handleNextClick}>next anecdote</button>
+      <p> has {points[selected]} votes.</p>
+      <button onClick={handleVoteClick}>Vote</button>
+      <button onClick={handleNextClick}>Next anecdote</button>
       <h1>Anecdote with most votes</h1>
       <p>{anecdotes[mostPopularAnecdote]}</p>
-      <p> has {points[mostPopularAnecdote]} votes</p>
+      <p>has {points[mostPopularAnecdote]} votes.</p>
     </div>
   )
 }
