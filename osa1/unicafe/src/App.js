@@ -1,8 +1,9 @@
 import {useState} from 'react'
 
-const Display = ({good, neutral, bad}) => {
+const Statistics = ({good, neutral, bad}) => {
   return(
     <div>
+      <h1>statistics</h1>
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
@@ -34,8 +35,7 @@ const App = () => {
       <Button handleClick={handleGoodClick} text="good" />
       <Button handleClick={handleNeutralClick} text="neutral" />
       <Button handleClick={handleBadClick} text="bad" />
-      <h1>statictics</h1>
-      <Display good={good} neutral={neutral} bad={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
