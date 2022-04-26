@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 const StatisticLine = ({text, value}) => {
   // For the percent of posivive feedbacks, we need to add "%" in the end.
-  if (text == "positive"){
+  if (text === "positive"){
     return(
       <tr>
         <td>{text}</td>
@@ -19,7 +19,7 @@ const StatisticLine = ({text, value}) => {
 }
 
 const Statistics = ({good, neutral, bad}) => {
-  if ((good+neutral+bad) != 0) {
+  if ((good+neutral+bad) !== 0) {
     return(
       <table>
         <tbody>
