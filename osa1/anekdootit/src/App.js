@@ -11,26 +11,38 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients."
   ];
 
-  const [points, setPoints] = useState([0,0,0,0,0,0,0])
-
+  const [points, setPoints] = useState(Array(anecdotes.length).fill(0)) // Luodaan nollilla täytetty useState-taulukko, jonka pituus on sama kuin anecdotes
   const [selected, setSelected] = useState(0)
+  const [mostPopularAnecdote, setMostPopularAnecdote] = useState(0)
 
+
+  // funktio vote napin painallukseen
   const handleVoteClick = () => {
-    const temp = [...points]
-    temp[selected] += 1
-    setPoints(temp)
+    const temp = [...points] // luodaan kopio points taulukosta
+    temp[selected] += 1 // inkrementoidaan valittua anekdoottia vastaavaa laskuria
+    setPoints(temp) // asetetaan uusi taulukko
+
+    // jos uusi arvo on suurempi, kuin nykyinen suurin arvo, niin
+    if(temp[selected] > temp[mostPopularAnecdote]) {
+      setMostPopularAnecdote(selected) // asetetaan valittu anekdootti suosituimmaksi
+    }
   }
 
+  // palauttaa satunnaisen luvun 0:n ja (anekdoottilistan pituus - 1):n väliltä
   const handleNextClick = () => {
     setSelected((Math.floor(Math.random()*100)) % (anecdotes.length))
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p> has {points[selected]} votes</p>
       <button onClick={handleVoteClick}>vote </button>
       <button onClick={handleNextClick}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[mostPopularAnecdote]}</p>
+      <p> has {points[mostPopularAnecdote]} votes</p>
     </div>
   )
 }
