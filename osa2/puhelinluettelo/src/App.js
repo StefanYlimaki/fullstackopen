@@ -3,9 +3,16 @@ import Person from "./components/Person"
 
 const App = () => {
   // initializing persons state-variable and settings state to an array containing "Arto Hellas".
-  const [persons, setPersons] = useState([{name: 'Arto Hellas'}])
-  // initializing newName state-variable and setting state to an empty string.
-  const [newName, setNewName] = useState('')
+  const [persons, setPersons] = useState([
+    {
+      name: "Arto Hellas",
+      number: "044 1234567"
+    }
+  ])
+  // initializing newName state-variable and setting state to empty string.
+  const [newName, setNewName] = useState("")
+  // initializing newNumber state-variable and setting state to empty string.
+  const [newNumber, setNewNumber] = useState("")
 
   /* onSubmit event handler for the HTML form's "add" button.
    * @Param event
@@ -19,7 +26,8 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObj = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     for(var i = 0; i < persons.length; i++) {
@@ -32,7 +40,7 @@ const App = () => {
     setNewName("")
   }
 
-  /* onChange event handler for the HTML form's input field.
+  /* onChange event handler for the HTML form's name input field.
    * @Param event
    * sets the state of newName to be the value in input field.
    */
@@ -40,24 +48,28 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  /* onChange event handler for the HTML form's number input field.
+   * @Param event
+   * sets the state of newNumber to be the value in input field.
+   */
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
+        <div> name: <input value={newName} onChange={handleNameChange}/></div>
+        <div> number: <input value={newNumber} onChange={handleNumberChange}/></div>
+        <div> <button type="submit">add</button></div>
       </form>
       <h2>Numbers</h2>
         <div>
           <ul>
-            {persons.map(person => <Person key={person.name} name={person.name} />)}
+            {persons.map(person => <Person key={person.name} name={person.name} number={person.number} />)}
           </ul>
         </div>
-
     </div>
   )
 }
