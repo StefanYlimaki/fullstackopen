@@ -4,24 +4,29 @@ import Person from "./components/Person"
 const App = () => {
   // initializing persons state-variable and settings state to an array containing "Arto Hellas".
   const [persons, setPersons] = useState([
-    {
-      name: "Arto Hellas",
-      number: "044 1234567"
-    }
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
   // initializing newName state-variable and setting state to empty string.
   const [newName, setNewName] = useState("")
   // initializing newNumber state-variable and setting state to empty string.
   const [newNumber, setNewNumber] = useState("")
+  // initializing newSearch state-variable and setting state to empty string.
+  const [newSearch, setNewSearch] = useState("")
 
   /* onSubmit event handler for the HTML form's "add" button.
    * @Param event
    * creates a new person object,
-   * if person to be added is already in the phonebook
-   * ==> alert user that the phonebook already contains that persons
+   * if name to be added is already in the phonebook
+   * ==> alert user that the phonebook already contains that name
+   * if the number to be is already in the phonebook
+   * ==> alert user that the phonebook already contains that number
    * if person is not already in the phonebook
    * ==> adds the object to persons state variable, and
    * ==> set the state of newName to empty string.
+   * ==> set the state of newNumber to empty string.
    */
   const addPerson = (event) => {
     event.preventDefault()
@@ -36,8 +41,16 @@ const App = () => {
         return
       }
     }
+
+    for(i = 0; i < persons.length; i++) {
+      if(persons[i].number === newNumber) {
+        alert(`${newNumber} is already in the phonebook`)
+        return
+      }
+    }
     setPersons(persons.concat(personObj))
     setNewName("")
+    setNewNumber("")
   }
 
   /* onChange event handler for the HTML form's name input field.
@@ -56,9 +69,26 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  /* creates the personsToShow -array depending on the search.
+   * if person name or number includes the newSearch -string (CASE INSENSITIVE)
+   * ==> creates array with those persons
+   *
+   */
+  const personsToShow = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()) || person.number.includes(newSearch))
+
+  /* onChange event handler for the search input field.
+   * @Param event
+   * sets the state of newSearch to be the value in input field.
+   */
+  const handleSearchChange = (event) => {
+    setNewSearch(event.target.value)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+        <input value={newSearch} onChange={handleSearchChange}/>
+      <h2>add a new</h2>
       <form onSubmit={addPerson}>
         <div> name: <input value={newName} onChange={handleNameChange}/></div>
         <div> number: <input value={newNumber} onChange={handleNumberChange}/></div>
@@ -67,7 +97,7 @@ const App = () => {
       <h2>Numbers</h2>
         <div>
           <ul>
-            {persons.map(person => <Person key={person.name} name={person.name} number={person.number} />)}
+            {personsToShow.map(person => <Person key={person.name} name={person.name} number={person.number} />)}
           </ul>
         </div>
     </div>
