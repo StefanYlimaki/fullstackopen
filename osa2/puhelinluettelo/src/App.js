@@ -10,13 +10,23 @@ const App = () => {
   /* onSubmit event handler for the HTML form's "add" button.
    * @Param event
    * creates a new person object,
-   * adds the object to persons state variable, handler
-   * sets the state of newName to empty string.
+   * if person to be added is already in the phonebook
+   * ==> alert user that the phonebook already contains that persons
+   * if person is not already in the phonebook
+   * ==> adds the object to persons state variable, and
+   * ==> set the state of newName to empty string.
    */
   const addPerson = (event) => {
     event.preventDefault()
     const personObj = {
       name: newName
+    }
+
+    for(var i = 0; i < persons.length; i++) {
+      if(persons[i].name === newName) {
+        alert(`${newName} is already in the phonebook`)
+        return
+      }
     }
     setPersons(persons.concat(personObj))
     setNewName("")
