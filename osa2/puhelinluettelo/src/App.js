@@ -1,5 +1,7 @@
 import {useState} from 'react'
-import Person from "./components/Person"
+import Filter from "./components/Filter"
+import PersonForm from "./components/PersonForm"
+import Persons from "./components/Persons"
 
 const App = () => {
   // initializing persons state-variable and settings state to an array containing "Arto Hellas".
@@ -87,19 +89,15 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-        <input value={newSearch} onChange={handleSearchChange}/>
-      <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div> name: <input value={newName} onChange={handleNameChange}/></div>
-        <div> number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        <div> <button type="submit">add</button></div>
-      </form>
-      <h2>Numbers</h2>
-        <div>
-          <ul>
-            {personsToShow.map(person => <Person key={person.name} name={person.name} number={person.number} />)}
-          </ul>
-        </div>
+      <Filter newSearch={newSearch} handleSearchChange={handleSearchChange} />
+      <br></br>
+      <br></br>
+      <h4>Add New Person</h4>
+      <PersonForm aP={addPerson} nNa={newName} hNaC={handleNameChange} nNu={newNumber} hNuC={handleNumberChange}/>
+      <br></br>
+      <br></br>
+      <h4>Phonebook Persons and Numbers</h4>
+      <Persons personsToShow={personsToShow} />
     </div>
   )
 }
