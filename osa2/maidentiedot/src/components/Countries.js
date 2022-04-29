@@ -1,7 +1,8 @@
-const Country = ({name}) => {
+const Country = ({name, country, chooseCountry}) => {
   return(
     <li>
       {name}
+      <button onClick={() => chooseCountry(name)}>show</button>
     </li>
   )
 }
@@ -42,7 +43,13 @@ const SingleCountry = ({country}) => {
     </div>
   )
 }
-const Countries = ({countriesToShow}) => {
+
+const Countries = ({countriesToShow, setSearch}) => {
+  const chooseCountry = (name) => {
+    console.log(name);
+    setSearch(name)
+  }
+
   switch (countriesToShow.length) {
     case 0:
       return(<p>No matches</p>)
@@ -52,11 +59,11 @@ const Countries = ({countriesToShow}) => {
           <SingleCountry country={countriesToShow[0]} />
         </div>
       )
-    case ((countriesToShow.length>=1 && countriesToShow.length<=5) ? countriesToShow.length : -1):
+    case ((countriesToShow.length>=1 && countriesToShow.length<=10) ? countriesToShow.length : -1):
       return(
         <div>
           <ul>
-            {countriesToShow.map(country => <Country key={country.name.common} name={country.name.common} />)}
+            {countriesToShow.map(country => <Country key={country.name.common} name={country.name.common} country={country} chooseCountry={chooseCountry} />)}
           </ul>
         </div>
       )

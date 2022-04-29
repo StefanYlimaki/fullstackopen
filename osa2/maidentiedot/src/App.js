@@ -19,27 +19,16 @@ function App() {
       })
   }, [])
 
-  /*countryNames.length = 0
-  for(var i = 0; i < countries.length; i++) {
-    const countryObject = {
-      name: countries[i].name.common
-    }
-    countryNames.push(countryObject)
-  }
-  */
-
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
   }
 
   const countriesToShow = countries.filter(country => country.name.common.toLowerCase().includes(search.toLowerCase()))
 
-  console.log("Countries to show:", countriesToShow);
-
   return (
     <div>
       <Filter search={search} handleSearchChange={handleSearchChange} />
-      <Countries countriesToShow={countriesToShow} />
+      <Countries countriesToShow={countriesToShow} setSearch={setSearch} />
     </div>
   );
 }
