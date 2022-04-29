@@ -60,7 +60,7 @@ const SingleCountry = ({country}) => {
         <img src={country.flags.png} alt={`Flag of ${country.name.common}`}/>
         <h2>Weather in {country.capital}</h2>
         <p>Temperature {Math.round((weather.main.temp-273.15) *100) / 100} Celcius</p>
-        <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={"weather icon for", weather.weather[0].description}/>
+        <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={weather.weather[0].description}/>
         <p>Wind {weather.wind.speed} m/s</p>
       </strong>
     </div>
