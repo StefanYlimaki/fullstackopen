@@ -6,11 +6,11 @@ import Countries from "./components/Countries"
 function App() {
 
   const [countries, setCountries] = useState([])
-  //const [countryNames, setCountryNames] = useState([])
+  const [weather, setWeather] = useState([])
   const [search, setSearch] = useState("")
 
   useEffect(() => {
-    console.log('Effect');
+    console.log('Getting countries');
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {

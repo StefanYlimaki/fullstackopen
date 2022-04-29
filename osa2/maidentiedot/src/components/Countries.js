@@ -1,3 +1,6 @@
+import {useState, useEffect} from "react"
+import axios from "axios"
+
 const Country = ({name, country, chooseCountry}) => {
   return(
     <li>
@@ -19,15 +22,31 @@ const Language = ({language}) => {
 
 
 const SingleCountry = ({country}) => {
+  const lat = country.latlng[0]
+  const lon = country.latlng[1]
+  const api_key = process.env.REACT_APP_API_KEY
+  const [weather, setWeather] = useState([])
+
+  useEffect(() => {
+    console.log('Getting Weather');
+    axios
+      .get(`https:api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`)
+      .then(response => {
+        setWeather(response.data)
+        console.log(response.data);
+      })
+  }, [lat, lon, api_key])
 
   const languages = []
-
-  console.log(country);
-
   for(var key in country.languages) {
     languages.push(country.languages[key])
   }
 
+  if(weather.length === 0) {
+    return(
+    <></>
+    )
+  }
   return(
     <div>
       <strong>
@@ -39,6 +58,10 @@ const SingleCountry = ({country}) => {
           {languages.map(language => <Language key={language} language={language} />)}
         </ul>
         <img src={country.flags.png} alt={`Flag of ${country.name.common}`}/>
+        <h2>Weather in {country.capital}</h2>
+        <p>Temperature {Math.round((weather.main.temp-273.15) *100) / 100} Celcius</p>
+        <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt={"weather icon for", weather.weather[0].description}/>
+        <p>Wind {weather.wind.speed} m/s</p>
       </strong>
     </div>
   )
@@ -46,7 +69,6 @@ const SingleCountry = ({country}) => {
 
 const Countries = ({countriesToShow, setSearch}) => {
   const chooseCountry = (name) => {
-    console.log(name);
     setSearch(name)
   }
 
